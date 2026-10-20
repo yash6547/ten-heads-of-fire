@@ -38,7 +38,7 @@ export async function downloadSvgAsPng(svg: SVGSVGElement, filename = "my-ravan.
 
 export type ShareResult = "shared" | "copied" | "cancelled" | "failed";
 export async function shareExperience(): Promise<ShareResult> {
-  const url = window.location.href.split("#")[0];
+  const url = window.location.href.split("#")[0] ?? window.location.href;
   const data = { title: "Ravan Dahan — Vijayadashami", text: "Burai par Achhai ki Vijay! Celebrate Dussehra with this Ravan Dahan.", url };
   if (navigator.share) {
     try { await navigator.share(data); return "shared"; }

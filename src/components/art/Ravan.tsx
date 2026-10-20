@@ -30,7 +30,7 @@ const SKIN = "#b65a2e";
 const GOLD = "#e7b53c";
 const GOLD_D = "#9b6a16";
 
-function Head({ faceUrl, clipId, gradId }: { faceUrl?: string | null; clipId: string; gradId: string }) {
+function Head({ faceUrl, clipId, gradId }: { faceUrl?: string | null | undefined; clipId: string; gradId: string }) {
   return (
     <g>
       <path d="M-31,-8 C-36,24 -22,44 0,45 C22,44 36,24 31,-8 Z" fill="#1b0e0a" />
@@ -85,7 +85,7 @@ const filterFor = (uid: string, st?: PartState) =>
 
 function Part({ pid, uid, burn, children }: { pid: PartId; uid: string; burn: BurnMap; children: React.ReactNode }) {
   const st = burn[pid];
-  const r = REGIONS[pid];
+  const r = REGIONS[pid]!;
   const mid = `m-${pid}-${uid}`;
   return (
     <g mask={`url(#${mid})`}>

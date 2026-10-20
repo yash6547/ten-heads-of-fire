@@ -4,11 +4,12 @@ import { audio } from "@/lib/audio-manager";
 import { MUSIC_TRACKS, type SoundKey } from "@/lib/sounds.config";
 
 export function useAudioState() {
-  return useSyncExternalStore(
+  useSyncExternalStore(
     (l) => audio.subscribe(l),
     () => `${JSON.stringify(audio.settings)}|${audio.currentMusic}|${audio.failed.size}|${audio.unlocked}`,
     () => "ssr",
-  ) && { ...audio.settings, currentMusic: audio.currentMusic, failed: [...audio.failed], unlocked: audio.unlocked };
+  );
+  return { ...audio.settings, currentMusic: audio.currentMusic, failed: [...audio.failed], unlocked: audio.unlocked };
 }
 
 export type Density = "low" | "medium" | "high";

@@ -82,7 +82,7 @@ export function Arena({ phase, go, faceUrl, density, reduced, toast }: Props) {
     return { x: p.x - r.left, y: p.y - r.top };
   }, []);
   const regionOf = useCallback((pid: string, shrinkTop = 0): (() => Rect | null) => () => {
-    const r = REGIONS[pid];
+    const r = REGIONS[pid]!;
     const a = mapPt(ravanRef.current, r.x, r.y + r.h * shrinkTop);
     const b = mapPt(ravanRef.current, r.x + r.w, r.y + r.h);
     return a && b ? { x: a.x, y: a.y, w: b.x - a.x, h: b.y - a.y } : null;
@@ -151,7 +151,7 @@ export function Arena({ phase, go, faceUrl, density, reduced, toast }: Props) {
       at(start, () => {
         setPart([pid], "burning");
         fx.addEmitter(pid, regionOf(pid, 0.2), { flame: 20, ember: 7, smoke: 1.5 });
-        const h = HEADS[hi]; const p = mapPt(ravanRef.current, h.x, h.y);
+        const h = HEADS[hi]!; const p = mapPt(ravanRef.current, h.x, h.y);
         if (p) fx.burst(p.x, p.y, { sparks: 14, embers: 10, flames: 6, smoke: 1 });
       });
       at(start + 1500, () => setPart([pid], "charred"));

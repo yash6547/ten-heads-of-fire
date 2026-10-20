@@ -89,7 +89,7 @@ export function FaceEditor({ onPreview, onApply, applied }: Props) {
   const onKey = (e: React.KeyboardEvent) => {
     const step = e.shiftKey ? 10 : 3;
     const m: Record<string, [number, number]> = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] };
-    if (m[e.key]) { e.preventDefault(); setOff((o) => ({ x: o.x + m[e.key][0], y: o.y + m[e.key][1] })); }
+    const mv = m[e.key]; if (mv) { e.preventDefault(); setOff((o) => ({ x: o.x + mv[0], y: o.y + mv[1] })); }
     if (e.key === "+" || e.key === "=") setZoom((z) => Math.min(4, z + 0.05));
     if (e.key === "-") setZoom((z) => Math.max(0.3, z - 0.05));
   };

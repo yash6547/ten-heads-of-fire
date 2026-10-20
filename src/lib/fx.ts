@@ -26,6 +26,7 @@ export class FX {
   private raf = 0;
   private last = 0;
   private sprites: HTMLCanvasElement[] = [];
+  private sp(i: number) { return this.sprites[i]!; }
   private smokeSprite!: HTMLCanvasElement;
   private fwSprites = new Map<number, HTMLCanvasElement>();
   w = 0; h = 0; dpr = 1;
@@ -107,7 +108,7 @@ export class FX {
   }
 
   firework(x?: number, ty?: number) {
-    const hue = [45, 30, 0, 320, 200, 120, 55][Math.floor(Math.random() * 7)];
+    const hue = [45, 30, 0, 320, 200, 120, 55][Math.floor(Math.random() * 7)] ?? 45;
     const sx = x ?? this.w * (0.1 + Math.random() * 0.8);
     const tY = ty ?? this.h * (0.12 + Math.random() * 0.3);
     this.spawn(ROCKET, sx, this.h, { vx: (Math.random() - 0.5) * 40, vy: -(this.h * 0.9), max: 3, s: 2, hue, ty: tY });
@@ -184,7 +185,7 @@ export class FX {
           const s = p.s * (1 - t * 0.7);
           const idx = Math.min(4, Math.floor(t * 5));
           ctx.globalAlpha = (1 - t) * 0.75;
-          ctx.drawImage(this.sprites[idx], p.x - s, p.y - s * 1.3, s * 2, s * 2.6);
+          ctx.drawImage(this.sp(idx), p.x - s, p.y - s * 1.3, s * 2, s * 2.6);
           break;
         }
         case EMBER: {
@@ -192,7 +193,7 @@ export class FX {
           p.x += p.vx * dt; p.y += p.vy * dt;
           ctx.globalAlpha = (1 - t) * (0.6 + 0.4 * Math.sin(p.life * 12 + p.seed));
           const s = p.s * 4;
-          ctx.drawImage(this.sprites[t < 0.5 ? 1 : 2], p.x - s, p.y - s, s * 2, s * 2);
+          ctx.drawImage(this.sp(t < 0.5 ? 1 : 2), p.x - s, p.y - s, s * 2, s * 2);
           break;
         }
         case SPARK: {
@@ -215,12 +216,12 @@ export class FX {
           this.spawn(EMBER, p.x, p.y, { vx: 0, vy: 20, max: 0.5, s: 1.2 });
           if (p.y <= (p.ty ?? 0)) p.life = p.max;
           ctx.globalAlpha = 1;
-          ctx.drawImage(this.sprites[1], p.x - 6, p.y - 6, 12, 12);
+          ctx.drawImage(this.sp(1), p.x - 6, p.y - 6, 12, 12);
           break;
         }
         case GLOW: {
           ctx.globalAlpha = (1 - t) * 0.8;
-          ctx.drawImage(this.sprites[1], p.x - p.s, p.y - p.s, p.s * 2, p.s * 2);
+          ctx.drawImage(this.sp(1), p.x - p.s, p.y - p.s, p.s * 2, p.s * 2);
           break;
         }
       }
