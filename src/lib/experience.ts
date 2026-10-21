@@ -19,17 +19,17 @@ export function canTransition(from: Phase, to: Phase) {
 
 export const isRunning = (p: Phase) => p === "arrow_flight" || p === "ignition" || p === "progressive_burn";
 
-/** Burn timeline (ms after ignition). Total ≈ 15.5 s before the finale screen. */
+/** Burn timeline (ms after ignition). Total ≈ 17 s before the finale screen. */
 export const TIMELINE = {
   legs: 400,
-  torso: 2600,
+  torso: 2400,
   arms: 4200,
-  legsGone: 5800,
-  headsStart: 7000,
-  headGap: 380,
-  torsoGone: 8400,
-  armsGone: 9000,
+  legsGone: 5600,
+  headsStart: 6400,
+  headGap: 340,
+  torsoGone: 8800,
+  armsGone: 9600,
   finalBurst: 11800,
-  extinguish: 14300,
-  finale: 15500,
+  extinguish: 15600,
+  finale: 17000,
 };
